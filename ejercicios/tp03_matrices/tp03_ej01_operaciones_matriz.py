@@ -27,3 +27,20 @@ con los números de las mismas.
 NOTA: El valor de N debe leerse por teclado. Las funciones deben servir cualquiera
 sea el valor ingresado.
 """
+
+def mostrar_opciones(): 
+    print("a- Números enteros en una matriz de N x N")
+    print("b- Ordenar en forma ascendente cada una de las filas de la matriz")
+    print("c- Intercambiar dos filas, cuyos números se reciben como parámetros.")
+    print("d- Intercambiar dos columnas dadas, cuyos números se reciben como parámetro.")
+    print("e- Trasponer la matriz sobre sí misma.")
+    print("f- Calcular el promedio de los elementos de una fila, cuyo número se recibe como parámetro.")
+    print("g- Calcular el porcentaje de elementos con valor impar en una columna, cuyo número se recibe como parámetro.")
+    print("h- Determinar si la matriz es simétrica con respecto a su diagonal principal.")
+    print("i- Determinar si la matriz es simétrica con respecto a su diagonal secundaria.")
+    print("j- Determinar qué columnas de la matriz son palíndromos (capicúas), devolviendo una lista con los números de las mismas.")
+
+def menu(): 
+    mostrar_opciones()
+    
+    

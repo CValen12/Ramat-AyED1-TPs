@@ -3,3 +3,4 @@
 primera que sean impares. El proceso deberá realizarse utilizando la función filter(). Imprimir las dos
 listas por pantalla.
 """
+

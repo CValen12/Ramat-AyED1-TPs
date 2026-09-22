@@ -14,7 +14,7 @@ billete de $200, 1 billete de $100 y 3 billetes de $10.
 billetes = [5000, 1000, 500, 200, 100, 50, 10]
 
 
-def sacar_resto() -> int:
+def _sacar_resto() -> int:
     """
     El usuario ingresa el monto total de la compra y el monto que paga el cliente. Este se resta para determinar
     el monto que hay que devolverle al cliente.
@@ -25,29 +25,31 @@ def sacar_resto() -> int:
     """
     costo = int(input("Ingrese el valor total de la compra: "))
     while costo < 0:
-        print("Ingrese un número valido.")
+        print("Ingrese un número válido.")
         costo = int(input("Ingrese el valor total de la compra: "))
 
-    cliente = int(input("Ingrese el monto que pago el consumidor: "))
+    cliente = int(input("Ingrese el monto que pagó el consumidor: "))
     while cliente < costo:
         print("El pago del cliente no alcanza el monto de la compra.")
-        cliente = int(input("Ingrese el monto que pago el consumidor: "))
+        cliente = int(input("Ingrese el monto que pagó el consumidor: "))
 
     vuelto = abs(costo - cliente)
     return vuelto
 
 
-def monto_a_devolver(vuelto: int) -> tuple[list[int], int]:
+def _monto_a_devolver(vuelto: int, billetes: list[int]) -> tuple[list[int], int]:
     """
     Se recibe un numero entero que corresponde al vuelto. Se recorre la lista global de billetes y busca
-    la cantidad optima de billetes que debe recibir el cliente. Se crea una lista con las cantidades. Y un
+    la cantidad óptima de billetes que debe recibir el cliente. Se crea una lista con las cantidades. Y un
     numero entero que indica el restante final que no se puede devolver con los billetes que hay.
 
     Pre: Un numero entero correspondiente al dinero que se le debe devolver al cliente
 
-    Post: Retorna una lista con las cantidades que debe recibir el cliente, alineando los indices con la lista de billetes.
+    Post: Retorna una lista con las cantidades que debe recibir el cliente, alineando los índices con la lista de billetes.
     Y un numero entero que corresponde al vuelto final que no es posible devolver.
     """
+    assert vuelto >= 0, "El vuelto no puede ser negativo."
+    assert len(billetes) > 0, "La lista no puede estar vacía."
     cantidad_billetes = []
     for b in billetes:
         cantidad = vuelto // b
@@ -57,7 +59,7 @@ def monto_a_devolver(vuelto: int) -> tuple[list[int], int]:
     return cantidad_billetes, vuelto_final
 
 
-def devolucion(cantidad_billetes: list[int], vuelto: int, vuelto_final: int) -> None:
+def _devolucion(cantidad_billetes: list[int], vuelto: int, vuelto_final: int, billetes: list[int]) -> None:
     """
     Se imprime en pantalla el monto total a devolver. La cantidad de billetes de cada valor a devolver.
     Y el monto total que no se puede devolver, en caso de este no sea 0.
@@ -68,6 +70,8 @@ def devolucion(cantidad_billetes: list[int], vuelto: int, vuelto_final: int) -> 
     Post: Se imprime el monto a devolver total, la cantidad de billetes, y en caso de que no se pueda regresar
     una parte, el monto que no es posible.
     """
+    assert len(cantidad_billetes) == len(billetes), "Las listas deben medir lo mismo."
+    assert vuelto >= 0, "El vuelto no puede ser negativo."
     print(f"El monto a devolver es: ${vuelto}")
     for i, e in enumerate(cantidad_billetes):
         if e > 0:
@@ -76,6 +80,15 @@ def devolucion(cantidad_billetes: list[int], vuelto: int, vuelto_final: int) -> 
         print(f"Hay ${vuelto_final} que no es posible devolver.")
 
 
-vuelto = sacar_resto()
-cantidad_billetes, vuelto_final = monto_a_devolver(vuelto)
-devolucion(cantidad_billetes, vuelto, vuelto_final)
+def main() -> None:
+    cants, resto = _monto_a_devolver(1830, [5000, 1000, 500, 200, 100, 50, 10])
+    assert cants == [0, 1, 1, 1, 1, 0, 3], "Falló el chequeo de billetes."
+    assert resto == 0, "Falló el chequeo del resto."
+    billetes = [5000, 1000, 500, 200, 100, 50, 10] 
+    vuelto = _sacar_resto()
+    cantidad_billetes, vuelto_final = _monto_a_devolver(vuelto, billetes)
+    _devolucion(cantidad_billetes, vuelto, vuelto_final, billetes)    
+    
+if __name__ == "__main__":
+    main()               
+            

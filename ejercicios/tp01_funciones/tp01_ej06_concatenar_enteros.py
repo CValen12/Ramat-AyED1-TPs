@@ -5,18 +5,26 @@ parámetros. Por ejemplo, si recibe 1234 y 567 debe devolver 1234567. No se perm
 utilizar facilidades de Python no vistas en clase.
 """
 
-def concatenar_numeros(a: int, b: int) -> str:
+def _concatenar_numeros(a: int, b: int) -> None:
     """
-    La funcion recibe 2 numeros enteros y los suma, pasandolos a string, concatenandose.
+    La función recibe 2 números enteros y los suma, pasandolos a string, concatenandose. Después se
+    pasan a int para darles valor.
     
-    Pre: La funcion recibe como parametro dos numeros enteros positivos.
+    Pre: La función recibe como parámetro dos números enteros positivos.
     
-    Post: Devuelve los 2 numeros concatenados en forma de string.
+    Post: Devuelve los 2 números concatenados en forma de entero.
     """
+    assert a > 0 and b > 0, "Ambos números deben ser enteros positivos."
     resultado = str(a) + str(b)
     resultado_entero = int(resultado)
-    print(f"La concatenación de estos numeros da: {resultado_entero}")
-    print(type(resultado_entero))
+    return resultado_entero
 
-concatenar_numeros(34, 52)
-concatenar_numeros(124, 62)
+def main() -> None:
+    assert _concatenar_numeros(1234, 567) == 1234567, "Error: debe dar 1234567."
+    assert _concatenar_numeros(34, 52) == 3452, "Error: debe dar 3452."    
+    resultado_entero = _concatenar_numeros(34, 52)
+    print(resultado_entero)
+    
+if __name__ == "__main__":
+    main()               
+            

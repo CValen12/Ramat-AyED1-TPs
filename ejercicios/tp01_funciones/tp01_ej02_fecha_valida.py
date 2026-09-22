@@ -6,9 +6,9 @@ Devolver True o False según la fecha sea correcta o no. Realizar también un
 programa para verificar el comportamiento de la función.
 """
 
-def recibir_datos() -> tuple:
+def _recibir_datos() -> tuple[int, int, int]:
     """
-    Recibe 3 numeros enteros ingresados por el usuario, correspondientes al dia, mes y año,
+    Recibe 3 numeros enteros ingresados por el usuario, correspondientes al día, mes y año,
     y los convierte en una tupla
     
     Pre: Se le pide al usuario 3 numeros enteros positivos
@@ -16,20 +16,21 @@ def recibir_datos() -> tuple:
     Post: Devuelve una tupla con los 3 elementos ingresados por el usuario
     """
     
-    dia = int(input("Ingrese el número del dia: "))
+    dia = int(input("Ingrese el número del día: "))
     mes = int(input("Ingrese el número del mes: "))
-    anio = int(input("Ingrese el número del anio: ")) 
+    anio = int(input("Ingrese el número del año: ")) 
     
     return dia, mes, anio
 
-def verificar_datos(dia: int, mes: int, anio: int) -> bool:
+def _verificar_datos(dia: int, mes: int, anio: int) -> bool:
     """
-    Recibe como parametro 3 elemntos correspondientes al dia, mes y año y verifica si es una fecha valida.
+    Recibe como parámetro 3 elementos correspondientes al día, mes y año y verifica si es una fecha valida.
     
-    Pre: Recibe 3 numeros enteros.
+    Pre: Recibe 3 numeros enteros positivos.
     
-    Post: Devuelve un booleano. True si es una fecha valida, False si no lo es.
+    Post: Devuelve un booleano.
     """
+    mes_31 = [1, 3, 5, 7, 8, 10, 12]  
     dia_limite = 30
     if mes in mes_31:
         dia_limite = 31
@@ -54,21 +55,24 @@ def verificar_datos(dia: int, mes: int, anio: int) -> bool:
     else:
         return False
     
-def devolucion(dia: int, mes: int, anio: int) -> None:
+def _devolucion(dia: int, mes: int, anio: int) -> None:
     """ 
-    Verifica si la funcion verificar_datos es true o false, e imprime en la pantalla el resultado correspondiente
+    Verifica si la función verificar_datos es true o false, e imprime en la pantalla el resultado correspondiente
     
-    Pre: Una funcion con un booleano que determina si los datos son correctos.
+    Pre: Una función con un booleano que determina si los datos son correctos.
     
     Post: Resultado que indica si la fecha es valida o no lo es.
     """
-    valor = verificar_datos(dia, mes, anio)
+    valor = _verificar_datos(dia, mes, anio)
     if valor == True:
-        print("El día es una fecha valida.")
+        print("El día es una fecha vélida.")
     else:
-        print("El día no es una fecha valida")
-        
-        
-mes_31 = [1, 3, 5, 7, 8, 10, 12]
-dia, mes, anio = recibir_datos()
-devolucion(dia, mes, anio)
+        print("El día no es una fecha válida")
+      
+def main() -> None:     
+    dia, mes, anio = _recibir_datos()
+    _devolucion(dia, mes, anio)   
+    
+    
+if __name__ == "__main__":
+    main()

@@ -6,13 +6,13 @@ también un programa para ingresar los tres valores, invocar a la función y mos
 el máximo hallado, o un mensaje informativo si éste no existe.
 """
 
-def recibir_numero() -> list:
+def _recibir_numero() -> list[int]:
     """
     Se le pide al usuario tres números y los agrega a una lista.
     
-    Pre: Los numeros ingresados deben ser enteros positivos
+    Pre: Los números ingresados deben ser enteros positivos
     
-    Post: Se retorna a una lista con 3 elementos
+    Post: Se retorna a una lista con 3 elementos enteros
     """
     lista = []
     contador = 0
@@ -22,16 +22,16 @@ def recibir_numero() -> list:
             contador += 1
             lista.append(numero)
         else:
-            print("\nIngrese un número valido")
+            print("\nIngrese un número válido")
     return lista
 
-def encontrar_mayor(lista: list) -> int:
+def _encontrar_mayor(lista: list[int]) -> int:
     """
     Recorre la lista hasta encontrar el mayor elemento
     
     Pre: Se requiere como parametro la lista de 3 elementos enteros.
     
-    Post: Se retorna un numero entero.
+    Post: Se retorna un número entero.
     """
     mayor = lista[0]
     for n in lista:
@@ -39,11 +39,11 @@ def encontrar_mayor(lista: list) -> int:
             mayor = n
     return mayor
 
-def verificar_unico(lista: list, mayor: int) -> bool:
+def _verificar_unico(lista: list[int], mayor: int) -> bool:
     """
-    Recorre la lista original y la compara con el numero mayor buscando si se repite.
+    Recorre la lista original y la compara con el número mayor buscando si se repite.
     
-    Pre: Recibe la lista de 3 elementos y el numero entero mayor de la lista.
+    Pre: Recibe la lista de 3 elementos y el número entero mayor de la lista.
     
     Post: Retorna true si el elemento mayor se repite, y false si no se repite
     """
@@ -57,22 +57,26 @@ def verificar_unico(lista: list, mayor: int) -> bool:
     else:
         return False
     
-def devolucion(lista: list, mayor: int, unico: bool) -> None:
+def _devolucion(lista: list[int], mayor: int, unico: bool) -> None:
     """
-    Imprime en pantalla el resultado. En caso de haber un numero mayor unico, lo imprime en pantalla. Y si no
+    Imprime en pantalla el resultado. En caso de haber un número mayor unico, lo imprime en pantalla. Y si no
     imprime que no lo hay
     
-    Pre: Recibe si el numero mayor es unico o no.
+    Pre: Recibe si el número mayor es unico o no.
     
-    Post: Imprime el resultado del numero mayor unico.
+    Post: Imprime el resultado del número mayor unico.
     """
-    verificar_unico(lista, mayor)
     if unico == True:
         print(f"El mayor único número ingresado es: {mayor}")
     else:
         print("No hay un número mayor único.")
         
-lista = recibir_numero()
-mayor = encontrar_mayor(lista)
-unico = verificar_unico(lista, mayor)
-devolucion(lista, mayor, unico)
+def main() -> None:        
+    lista = _recibir_numero()
+    mayor = _encontrar_mayor(lista)
+    unico = _verificar_unico(lista, mayor)
+    _devolucion(lista, mayor, unico)
+    
+if __name__ == "__main__":
+    main()
+

@@ -14,3 +14,21 @@ Ambas funciones lambda reciben como único parámetro el número a evaluar y
 devuelven True o False. No se permite utilizar ayudas externas a las mismas.
 """
 
+_oblongo = lambda num: (int(num ** 0.5) * (int(num ** 0.5) + 1)) == num 
+
+def main() -> None:    
+    assert _oblongo(6) == True, "Error: 6 tiene que dar True"
+    assert _oblongo(5) == False, "Error: 5 tiene que dar False"    
+    num = 5
+    if _oblongo(num) == True:
+        print("El número es oblongo.")
+    else:
+        print("El número no es oblongo.")
+    
+if __name__ == "__main__":
+    main()               
+            
+
+
+
+

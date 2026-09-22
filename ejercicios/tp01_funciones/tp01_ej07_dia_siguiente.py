@@ -9,41 +9,54 @@ a. Sumar N días a una fecha.
 b. Calcular la cantidad de días existentes entre dos fechas cualesquiera.
 """
 
-""" Las proxima funcion la saque del ejercicio N° 2"""
-
-def verificar_datos(dia: int, mes: int, anio: int) -> bool:
-    """
-    Recibe como parametro 3 elementos correspondientes al dia, mes y año y verifica si es una fecha valida.
-    
-    Pre: Recibe 3 numeros enteros.
-    
-    Post: Devuelve un booleano. True si es una fecha valida, False si no lo es.
-    """
+def _dia_siguiente(dia: int, mes: int, anio: int) -> tuple[int, int,int]:
+    mes_31 = [1, 3, 5, 7, 8, 10, 12]
     dia_limite = 30
     if mes in mes_31:
         dia_limite = 31
     elif mes == 2:
-        if anio % 4 == 0 and anio % 100 != 0:
-            dia_limite = 29
-        elif anio % 400 == 0:
+        if (anio % 4 == 0 and anio % 100 != 0) or anio % 400 == 0:
             dia_limite = 29
         else:
-            dia_limite = 28
-    else:
-        dia_limite = 30
-        
-    if dia > 0 and dia <= dia_limite:
-        if mes > 0 and mes <= 12:
-            if anio > 0 and anio <= 2027:
-                return True
-            else:
-                return False
-        else:
-            return False
-    else:
-        return False
+            dia_limite = 28 #hasta esta parte lo saque del ejercicio 2
     
-def dia_siguiente(dia: int, mes: int, anio: int):
+    dia += 1
+    if dia > dia_limite:
+        dia = 1
+        mes += 1
+        if mes == 13:
+            mes = 1
+            anio += 1
+            
+    return dia, mes, anio
+
+def _sumar_dias(dia: int, mes: int, anio: int) -> tuple[int, int, int]:
+    """
+    La función suma una cantidad n de dias a la fecha como parámetro.
     
-datos = verificar_datos(31, 12, 2023)
-dia_siguiente()
+    Pre: Recibe como parametro 3 numero enteros positivos
+    
+    Post: Retorna una tupla con 3 elementos enteros
+    """
+    n = int(input("Ingrese el número de días a sumarle: "))
+    contador = 1
+    while contador != n:
+        contador += 1
+        dia, mes, anio = _dia_siguiente(dia, mes,anio)
+    return dia, mes, anio
+            
+
+def main() -> None:
+    assert _dia_siguiente(31, 12, 2023) == (1, 1, 2024), "Error: fin de año."
+    assert _dia_siguiente(28, 2, 2024) == (29, 2, 2024), "Error: año bisiesto."
+    
+    dia, mes, anio = _dia_siguiente(31, 12, 2003)
+    print(f"Día siguiente: {dia}, {mes}, {anio}")
+    dia1, mes1, anio1 = _sumar_dias(dia, mes, anio)
+    print(dia1, mes1, anio1)
+    
+if __name__ == "__main__":
+    main()               
+            
+            
+            
